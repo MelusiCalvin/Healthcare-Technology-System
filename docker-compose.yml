@@ -1,0 +1,124 @@
+name: ubuntu-health
+
+services:
+  postgres:
+    image: postgres:17.9-alpine
+    container_name: ubuntu-health-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB is required}
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      APP_DATABASE_USERNAME: ${APP_DATABASE_USERNAME:?APP_DATABASE_USERNAME is required}
+      APP_DATABASE_PASSWORD: ${APP_DATABASE_PASSWORD:?APP_DATABASE_PASSWORD is required}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    command:
+      - postgres
+      - -c
+      - password_encryption=scram-sha-256
+      - -c
+      - timezone=UTC
+      - -c
+      - log_timezone=UTC
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    networks:
+      - ubuntu-health-network
+
+  flyway:
+    image: flyway/flyway:13.0.0
+    container_name: ubuntu-health-flyway
+    restart: "no"
+    command:
+      - -connectRetries=60
+      - -url=jdbc:postgresql://postgres:5432/${POSTGRES_DB:?POSTGRES_DB is required}
+      - -user=${POSTGRES_USER:?POSTGRES_USER is required}
+      - -password=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      - -defaultSchema=public
+      - -schemas=public,reference,iam,organisation,patient,scheduling,clinical,nursing,pharmacy,diagnostics,finance,communication,documents,audit,integration,reporting
+      - -createSchemas=false
+      - -locations=filesystem:/flyway/sql
+      - -placeholderReplacement=true
+      - -placeholders.appRole=${APP_DATABASE_USERNAME:?APP_DATABASE_USERNAME is required}
+      - -cleanDisabled=true
+      - migrate
+    volumes:
+      - ./database/migrations:/flyway/sql:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ubuntu-health-network
+
+  redis:
+    image: redis:7.4.9-alpine
+    container_name: ubuntu-health-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?REDIS_PASSWORD is required}"]
+    ports:
+      - "127.0.0.1:${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli --no-auth-warning -a \"$$REDIS_PASSWORD\" ping | grep -q PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - ubuntu-health-network
+
+  rabbitmq:
+    image: rabbitmq:4.3.4-management-alpine
+    container_name: ubuntu-health-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:?RABBITMQ_DEFAULT_USER is required}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:?RABBITMQ_DEFAULT_PASS is required}
+      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_DEFAULT_VHOST:-ubuntu-health}
+    ports:
+      - "127.0.0.1:${RABBITMQ_PORT:-5672}:5672"
+      - "127.0.0.1:${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics -q ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks:
+      - ubuntu-health-network
+
+  minio:
+    image: minio/minio:RELEASE.2025-06-13T11-33-47Z-cpuv1
+    container_name: ubuntu-health-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?MINIO_ROOT_USER is required}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?MINIO_ROOT_PASSWORD is required}
+    ports:
+      - "127.0.0.1:${MINIO_API_PORT:-9000}:9000"
+      - "127.0.0.1:${MINIO_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - ubuntu-health-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:
+  minio_data:
+
+networks:
+  ubuntu-health-network:
+    driver: bridge
