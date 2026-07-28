@@ -14,8 +14,8 @@ class OpenApiConfiguration {
     OpenAPI ubuntuHealthOpenApi(UbuntuHealthProperties properties) {
         return new OpenAPI()
                 .info(new Info()
-                        .title(String.format("%s API", properties.name()))
-                        .version(properties.version())
+                        .title(String.format("%s API", properties.getName()))
+                        .version(properties.getVersion())
                         .description("Secure healthcare platform API. Clinical decisions remain the responsibility of authorised healthcare professionals.")
                         .license(new License().name("Proprietary")))
                 .addServersItem(new Server().url("/").description("Current environment"));

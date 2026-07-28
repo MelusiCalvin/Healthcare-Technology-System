@@ -21,9 +21,9 @@ class SystemStatusController {
     @GetMapping("/status")
     ResponseEntity<ApiResponse<SystemStatusResponse>> status() {
         var response = new SystemStatusResponse(
-                required(properties.name()),
-                required(properties.environment()),
-                required(properties.version()),
+                required(properties.getName()),
+                required(properties.getEnvironment()),
+                required(properties.getVersion()),
                 "UP"
         );
 
