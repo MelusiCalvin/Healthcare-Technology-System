@@ -21,4 +21,6 @@ public interface PatientRepository extends JpaRepository<Patient, UUID> {
             "or lower(p.lastName) like lower(concat('%', :query, '%')) " +
             "or lower(p.identificationNumber) like lower(concat('%', :query, '%')))")
     Page<Patient> search(String query, String province, String language, Pageable pageable);
+
+    public Page<Patient> search(String string, Pageable pageable);
 }
