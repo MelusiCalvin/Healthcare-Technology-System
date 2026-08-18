@@ -1,83 +1,59 @@
 package za.co.ubuntuhealth.identity.domain;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
-import jakarta.persistence.Version;
 
-import java.time.Instant;
-import java.util.Objects;
+import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(schema = "iam", name = "user_account")
+@Table(name = "user_account", schema = "identity")
 public class UserAccount {
-
     @Id
     private UUID id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true, length = 120)
     private String username;
 
-    @Column(unique = true)
-    private String email;
+    @Column(name = "password_hash", nullable = false, length = 255)
+    private String passwordHash;
 
-    @Column(name = "display_name", nullable = false)
-    private String displayName;
+    @Column(name = "active", nullable = false)
+    private boolean active;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", schema = "identity", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role", nullable = false, length = 40)
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserStatus status;
+    private Set<UserRole> roles = new HashSet<>();
 
-    @Column(name = "last_login_at")
-    private Instant lastLoginAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private OffsetDateTime createdAt;
 
-    @Version
-    private long version;
+    protected UserAccount() {}
 
-    protected UserAccount() {
+    public UserAccount(UUID id, String username, String passwordHash, Set<UserRole> roles) {
+        this.id = id;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.roles = new HashSet<>(roles);
+        this.active = true;
+        this.createdAt = OffsetDateTime.now();
     }
 
-    private UserAccount(String username, String email, String displayName, UserStatus status) {
-        this.id = UUID.randomUUID();
-        this.username = Objects.requireNonNull(username, "username must not be null");
-        this.email = email;
-        this.displayName = Objects.requireNonNull(displayName, "displayName must not be null");
-        this.status = Objects.requireNonNull(status, "status must not be null");
-    }
-
-    public static UserAccount create(String username, String email, String displayName) {
-        return new UserAccount(username, email, displayName, UserStatus.ACTIVE);
-    }
-
-    public UUID id() {
-        return id;
-    }
-
-    public String username() {
-        return username;
-    }
-
-    public String email() {
-        return email;
-    }
-
-    public String displayName() {
-        return displayName;
-    }
-
-    public UserStatus status() {
-        return status;
-    }
-
-    public boolean mayAuthenticate() {
-        return status == UserStatus.ACTIVE;
-    }
-
-    public void recordSuccessfulLogin(Instant occurredAt) {
-        this.lastLoginAt = Objects.requireNonNull(occurredAt, "occurredAt must not be null");
-    }
+    public UUID getId() { return id; }
+    public String getUsername() { return username; }
+    public String getPasswordHash() { return passwordHash; }
+    public boolean isActive() { return active; }
+    public Set<UserRole> getRoles() { return Set.copyOf(roles); }
 }
