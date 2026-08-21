@@ -16,15 +16,15 @@ public class ApiResponse<T> {
         this.correlationId = correlationId;
     }
 
-    public T data() {
+    public T getData() {
         return data;
     }
 
-    public Instant timestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
-    public String correlationId() {
+    public String getCorrelationId() {
         return correlationId;
     }
 

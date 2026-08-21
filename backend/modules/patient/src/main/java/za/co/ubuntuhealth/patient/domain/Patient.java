@@ -1,80 +1,71 @@
 package za.co.ubuntuhealth.patient.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Set;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import za.co.ubuntuhealth.identity.domain.UserAccount;
+import za.co.ubuntuhealth.identity.domain.UserRole;
+
 @Entity
-@Table(name = "patient", schema = "patient")
-public class Patient {
+@Table(name = "patients")
+public class Patient extends UserAccount {
 
+    @Column(name = "user_account_id", nullable = false, unique = true)
+    private UUID userAccountId;
     @Id
-    private UUID id;
-
-    @Column(name = "patient_number", nullable = false, unique = true, length = 32)
-    private String patientNumber;
-
-    @Column(name = "first_name", nullable = false, length = 100)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 100)
-    private String lastName;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID patientId;
 
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
-    @Column(name = "sex", nullable = false, length = 20)
-    private String sex;
-
-    @Column(name = "phone_number", length = 30)
     private String phoneNumber;
 
-    @Column(name = "email", length = 254)
-    private String email;
-
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private OffsetDateTime createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
-
     protected Patient() {
+        super();
     }
 
-    public Patient(UUID id, String patientNumber, String firstName, String lastName,
-                   LocalDate dateOfBirth, String sex, String phoneNumber, String email) {
-        this.id = id;
-        this.patientNumber = patientNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Patient(
+            String firstName,
+            String lastName,
+            UUID userAccountId,
+            String patientNumber,
+            String sex,
+            String email,
+            String phoneNumber,
+            LocalDate dateOfBirth,
+            String passwordHash
+    ) {
+        super(firstName, lastName, patientNumber, email, passwordHash, Set.of(UserRole.PATIENT));
+        this.userAccountId = userAccountId;
         this.dateOfBirth = dateOfBirth;
-        this.sex = sex;
         this.phoneNumber = phoneNumber;
-        this.email = email;
-        OffsetDateTime now = OffsetDateTime.now();
-        this.createdAt = now;
-        this.updatedAt = now;
     }
 
-    public UUID getId() { return id; }
-    public String getPatientNumber() { return patientNumber; }
-    public String getFirstName() { return firstName; }
-    public String getLastName() { return lastName; }
-    public LocalDate getDateOfBirth() { return dateOfBirth; }
-    public String getSex() { return sex; }
-    public String getPhoneNumber() { return phoneNumber; }
-    public String getEmail() { return email; }
-    public OffsetDateTime getCreatedAt() { return createdAt; }
-    public OffsetDateTime getUpdatedAt() { return updatedAt; }
+    public UUID getUserAccountId() {
+        return userAccountId;
+    }
 
-    public void updateContactDetails(String phoneNumber, String email) {
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.updatedAt = OffsetDateTime.now();
+    public UUID getPatientId() {
+        return patientId;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public OffsetDateTime getUpdatedAt() {
+        return super.getCreatedAt();
     }
 }

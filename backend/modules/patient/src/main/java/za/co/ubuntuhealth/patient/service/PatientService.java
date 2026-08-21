@@ -21,15 +21,17 @@ public class PatientService {
     }
 
     public PatientResponse create(PatientCreateRequest request) {
+        String patientNumber = generatePatientNumber();
         Patient patient = new Patient(
-                UUID.randomUUID(),
-                generatePatientNumber(),
-                request.firstName().trim(),
-                request.lastName().trim(),
-                request.dateOfBirth(),
-                request.sex().trim(),
-                normalize(request.phoneNumber()),
-                normalize(request.email())
+            request.firstName().trim(),
+            request.lastName().trim(),
+            UUID.randomUUID(),
+            patientNumber,
+            request.sex().trim(),
+            normalize(request.email()),
+            normalize(request.phoneNumber()),
+            request.dateOfBirth(),
+            UUID.randomUUID().toString()
         );
 
         return PatientResponse.from(patientRepository.save(patient));

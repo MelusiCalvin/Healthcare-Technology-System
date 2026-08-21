@@ -13,19 +13,19 @@ public class SystemStatusResponse {
         this.status = status;
     }
 
-    public String service() {
+    public String getService() {
         return service;
     }
 
-    public String environment() {
+    public String getEnvironment() {
         return environment;
     }
 
-    public String version() {
+    public String getVersion() {
         return version;
     }
 
-    public String status() {
+    public String getStatus() {
         return status;
     }
 }

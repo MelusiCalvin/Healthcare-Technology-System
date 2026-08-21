@@ -1,0 +1,258 @@
+﻿[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Ubuntu Health Backend                                              [pom]
+[INFO] Ubuntu Health Shared Kernel                                        [jar]
+[INFO] Ubuntu Health Contracts                                            [jar]
+[INFO] Ubuntu Health Identity Module                                      [jar]
+[INFO] Ubuntu Health Organisation Module                                  [jar]
+[INFO] Ubuntu Health Patient Module                                       [jar]
+[INFO] Ubuntu Health Scheduling Module                                    [jar]
+[INFO] Ubuntu Health Clinical Module                                      [jar]
+[INFO] Ubuntu Health Nursing Module                                       [jar]
+[INFO] Ubuntu Health Pharmacy Module                                      [jar]
+[INFO] Ubuntu Health Diagnostics Module                                   [jar]
+[INFO] Ubuntu Health Finance Module                                       [jar]
+[INFO] Ubuntu Health Communication Module                                 [jar]
+[INFO] Ubuntu Health Documents Module                                     [jar]
+[INFO] Ubuntu Health Audit Module                                         [jar]
+[INFO] Ubuntu Health Integration Module                                   [jar]
+[INFO] Ubuntu Health Reporting Module                                     [jar]
+[INFO] Ubuntu Health Bootstrap                                            [jar]
+[INFO] 
+[INFO] --------------< za.co.ubuntuhealth:ubuntu-health-backend >--------------
+[INFO] Building Ubuntu Health Backend 0.1.0-SNAPSHOT                     [1/18]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] -----------< za.co.ubuntuhealth:ubuntu-health-shared-kernel >-----------
+[INFO] Building Ubuntu Health Shared Kernel 0.1.0-SNAPSHOT               [2/18]
+[INFO]   from ubuntu-health-shared-kernel\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-shared-kernel ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\ubuntu-health-shared-kernel\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\ubuntu-health-shared-kernel\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-shared-kernel ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] -------------< za.co.ubuntuhealth:ubuntu-health-contracts >-------------
+[INFO] Building Ubuntu Health Contracts 0.1.0-SNAPSHOT                   [3/18]
+[INFO]   from ubuntu-health-contracts\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-contracts ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\ubuntu-health-contracts\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\ubuntu-health-contracts\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-contracts ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] -------------< za.co.ubuntuhealth:ubuntu-health-identity >--------------
+[INFO] Building Ubuntu Health Identity Module 0.1.0-SNAPSHOT             [4/18]
+[INFO]   from modules\identity\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-identity ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\identity\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\identity\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-identity ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] -----------< za.co.ubuntuhealth:ubuntu-health-organisation >------------
+[INFO] Building Ubuntu Health Organisation Module 0.1.0-SNAPSHOT         [5/18]
+[INFO]   from modules\organisation\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-organisation ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\organisation\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\organisation\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-organisation ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --------------< za.co.ubuntuhealth:ubuntu-health-patient >--------------
+[INFO] Building Ubuntu Health Patient Module 0.1.0-SNAPSHOT              [6/18]
+[INFO]   from modules\patient\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-patient ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\patient\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\patient\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-patient ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] ------------< za.co.ubuntuhealth:ubuntu-health-scheduling >-------------
+[INFO] Building Ubuntu Health Scheduling Module 0.1.0-SNAPSHOT           [7/18]
+[INFO]   from modules\scheduling\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-scheduling ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\scheduling\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\scheduling\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-scheduling ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] -------------< za.co.ubuntuhealth:ubuntu-health-clinical >--------------
+[INFO] Building Ubuntu Health Clinical Module 0.1.0-SNAPSHOT             [8/18]
+[INFO]   from modules\clinical\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-clinical ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\clinical\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\clinical\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-clinical ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --------------< za.co.ubuntuhealth:ubuntu-health-nursing >--------------
+[INFO] Building Ubuntu Health Nursing Module 0.1.0-SNAPSHOT              [9/18]
+[INFO]   from modules\nursing\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-nursing ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\nursing\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\nursing\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-nursing ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] -------------< za.co.ubuntuhealth:ubuntu-health-pharmacy >--------------
+[INFO] Building Ubuntu Health Pharmacy Module 0.1.0-SNAPSHOT            [10/18]
+[INFO]   from modules\pharmacy\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-pharmacy ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\pharmacy\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\pharmacy\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-pharmacy ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] ------------< za.co.ubuntuhealth:ubuntu-health-diagnostics >------------
+[INFO] Building Ubuntu Health Diagnostics Module 0.1.0-SNAPSHOT         [11/18]
+[INFO]   from modules\diagnostics\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-diagnostics ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\diagnostics\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\diagnostics\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-diagnostics ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --------------< za.co.ubuntuhealth:ubuntu-health-finance >--------------
+[INFO] Building Ubuntu Health Finance Module 0.1.0-SNAPSHOT             [12/18]
+[INFO]   from modules\finance\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-finance ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\finance\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\finance\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-finance ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] -----------< za.co.ubuntuhealth:ubuntu-health-communication >-----------
+[INFO] Building Ubuntu Health Communication Module 0.1.0-SNAPSHOT       [13/18]
+[INFO]   from modules\communication\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-communication ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\communication\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\communication\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-communication ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] -------------< za.co.ubuntuhealth:ubuntu-health-documents >-------------
+[INFO] Building Ubuntu Health Documents Module 0.1.0-SNAPSHOT           [14/18]
+[INFO]   from modules\documents\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-documents ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\documents\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\documents\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-documents ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] ---------------< za.co.ubuntuhealth:ubuntu-health-audit >---------------
+[INFO] Building Ubuntu Health Audit Module 0.1.0-SNAPSHOT               [15/18]
+[INFO]   from modules\audit\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-audit ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\audit\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\audit\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-audit ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] ------------< za.co.ubuntuhealth:ubuntu-health-integration >------------
+[INFO] Building Ubuntu Health Integration Module 0.1.0-SNAPSHOT         [16/18]
+[INFO]   from modules\integration\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-integration ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\integration\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\integration\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-integration ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] -------------< za.co.ubuntuhealth:ubuntu-health-reporting >-------------
+[INFO] Building Ubuntu Health Reporting Module 0.1.0-SNAPSHOT           [17/18]
+[INFO]   from modules\reporting\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-reporting ---
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\reporting\src\main\resources
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\modules\reporting\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-reporting ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] -------------< za.co.ubuntuhealth:ubuntu-health-bootstrap >-------------
+[INFO] Building Ubuntu Health Bootstrap 0.1.0-SNAPSHOT                  [18/18]
+[INFO]   from ubuntu-health-bootstrap\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ ubuntu-health-bootstrap ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] skip non existing resourceDirectory C:\Users\Melus\Desktop\Healthcare Technology System\backend\database\migrations
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ ubuntu-health-bootstrap ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Ubuntu Health Backend 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] Ubuntu Health Backend .............................. SUCCESS [  0.002 s]
+[INFO] Ubuntu Health Shared Kernel ........................ SUCCESS [  0.467 s]
+[INFO] Ubuntu Health Contracts ............................ SUCCESS [  0.026 s]
+[INFO] Ubuntu Health Identity Module ...................... SUCCESS [  0.498 s]
+[INFO] Ubuntu Health Organisation Module .................. SUCCESS [  0.016 s]
+[INFO] Ubuntu Health Patient Module ....................... SUCCESS [  0.071 s]
+[INFO] Ubuntu Health Scheduling Module .................... SUCCESS [  0.011 s]
+[INFO] Ubuntu Health Clinical Module ...................... SUCCESS [  0.007 s]
+[INFO] Ubuntu Health Nursing Module ....................... SUCCESS [  0.010 s]
+[INFO] Ubuntu Health Pharmacy Module ...................... SUCCESS [  0.007 s]
+[INFO] Ubuntu Health Diagnostics Module ................... SUCCESS [  0.014 s]
+[INFO] Ubuntu Health Finance Module ....................... SUCCESS [  0.011 s]
+[INFO] Ubuntu Health Communication Module ................. SUCCESS [  0.006 s]
+[INFO] Ubuntu Health Documents Module ..................... SUCCESS [  0.009 s]
+[INFO] Ubuntu Health Audit Module ......................... SUCCESS [  0.005 s]
+[INFO] Ubuntu Health Integration Module ................... SUCCESS [  0.007 s]
+[INFO] Ubuntu Health Reporting Module ..................... SUCCESS [  0.008 s]
+[INFO] Ubuntu Health Bootstrap ............................ SUCCESS [  0.632 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.245 s
+[INFO] Finished at: 2026-07-28T12:18:33+02:00
+[INFO] ------------------------------------------------------------------------
