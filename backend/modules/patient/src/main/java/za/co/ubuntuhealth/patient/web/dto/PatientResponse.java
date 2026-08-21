@@ -21,7 +21,7 @@ public class PatientResponse {
     private String medicalAidProvider;
 
     public PatientResponse(Patient patient) {
-        this.id = patient.id();
+        this.id = patient.getUserAccountId().getId();
         this.firstName = patient.firstName();
         this.lastName = patient.lastName();
         this.dateOfBirth = patient.dateOfBirth();

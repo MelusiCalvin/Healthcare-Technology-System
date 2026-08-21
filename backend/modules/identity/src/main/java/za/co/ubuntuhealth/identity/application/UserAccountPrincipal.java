@@ -10,8 +10,8 @@ public class UserAccountPrincipal {
     private final String username;
 
     public UserAccountPrincipal(UserAccount user) {
-        this.id = user.id();
-        this.username = user.username();
+        this.id = user.getId();
+        this.username = user.getUsername();
     }
 
     public UUID id() {

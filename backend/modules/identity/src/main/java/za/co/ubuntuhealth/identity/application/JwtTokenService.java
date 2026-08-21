@@ -2,9 +2,9 @@ package za.co.ubuntuhealth.identity.application;
 
 import java.time.Instant;
 import java.util.Base64;
-import org.springframework.stereotype.Component;
-
 import java.util.Map;
+
+import org.springframework.stereotype.Component;
 
 import za.co.ubuntuhealth.identity.domain.UserAccount;
 
@@ -21,8 +21,8 @@ public class JwtTokenService {
         Map<String, Object> payload = Map.of(
                 "iss", properties.issuer(),
                 "aud", properties.audience(),
-                "sub", user.id().toString(),
-                "preferred_username", user.username(),
+                "sub", user.getId().toString(),
+                "preferred_username", user.getUsername(),
                 "iat", Instant.now().getEpochSecond(),
                 "exp", Instant.now().plus(properties.accessTokenTtl()).getEpochSecond()
         );

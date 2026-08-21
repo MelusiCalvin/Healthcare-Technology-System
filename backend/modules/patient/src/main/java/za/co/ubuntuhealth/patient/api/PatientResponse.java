@@ -7,8 +7,8 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public record PatientResponse(
-        UUID id,
-        String patientNumber,
+        UUID userAccountId,
+        UUID patientId,
         String firstName,
         String lastName,
         LocalDate dateOfBirth,
@@ -20,7 +20,7 @@ public record PatientResponse(
 ) {
     public static PatientResponse from(Patient patient) {
         return new PatientResponse(
-                patient.getId(), patient.getPatientNumber(), patient.getFirstName(),
+                patient.getUserAccountId(), patient.getPatientId(), patient.getFirstName(),
                 patient.getLastName(), patient.getDateOfBirth(), patient.getSex(),
                 patient.getPhoneNumber(), patient.getEmail(), patient.getCreatedAt(),
                 patient.getUpdatedAt()

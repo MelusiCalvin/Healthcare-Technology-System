@@ -2,6 +2,7 @@ package za.co.ubuntuhealth.identity.application;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,7 @@ import za.co.ubuntuhealth.identity.infrastructure.persistence.RefreshTokenReposi
 import za.co.ubuntuhealth.identity.infrastructure.persistence.UserAccountRepository;
 import za.co.ubuntuhealth.shared.kernel.error.DomainException;
 import za.co.ubuntuhealth.shared.kernel.error.ErrorCode;
+import za.co.ubuntuhealth.identity.domain.UserRole;
 
 @Service
 public class AuthenticationService {
@@ -46,9 +48,10 @@ public class AuthenticationService {
     @PostConstruct
     void bootstrapDefaultAdmin() {
         if (userAccountRepository.count() == 0) {
-            UserAccount admin = UserAccount.create("admin", "admin@ubuntuhealth.za", "System Administrator");
+            UserAccount admin = new UserAccount("admin", "admin@example.com", passwordEncoder.encode("ChangeMe123!"), 
+            Set.of(UserRole.SYSTEM_ADMIN));
             userAccountRepository.save(admin);
-            passwordCredentialRepository.save(PasswordCredential.forUser(admin, passwordEncoder.encode("ChangeMe123!")));
+            passwordCredentialRepository.save(PasswordCredential.forUser(admin, admin.getPasswordHash()));
         }
     }
 
@@ -56,11 +59,11 @@ public class AuthenticationService {
         UserAccount user = userAccountRepository.findByUsernameOrEmail(usernameOrEmail)
                 .orElseThrow(() -> new DomainException(ErrorCode.ACCESS_DENIED, "Invalid credentials."));
 
-        if (!user.mayAuthenticate()) {
+        if (!user.isActive()) {
             throw new DomainException(ErrorCode.ACCESS_DENIED, "User account is not active.");
         }
 
-        PasswordCredential credential = passwordCredentialRepository.findById(user.id())
+        PasswordCredential credential = passwordCredentialRepository.findById(user.getId())
                 .orElseThrow(() -> new DomainException(ErrorCode.ACCESS_DENIED, "Invalid credentials."));
 
         if (!passwordEncoder.matches(password, credential.passwordHash())) {
