@@ -48,8 +48,7 @@ public class AuthenticationService {
     @PostConstruct
     void bootstrapDefaultAdmin() {
         if (userAccountRepository.count() == 0) {
-            UserAccount admin = new UserAccount("admin", "admin@example.com", passwordEncoder.encode("ChangeMe123!"), 
-            Set.of(UserRole.SYSTEM_ADMIN));
+            UserAccount admin = new UserAccount();
             userAccountRepository.save(admin);
             passwordCredentialRepository.save(PasswordCredential.forUser(admin, admin.getPasswordHash()));
         }
