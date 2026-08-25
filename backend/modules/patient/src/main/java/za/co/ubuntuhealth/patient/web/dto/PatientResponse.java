@@ -8,30 +8,30 @@ import za.co.ubuntuhealth.patient.domain.SouthAfricanIdType;
 
 public class PatientResponse {
 
-    private UUID id;
-    private String firstName;
-    private String lastName;
-    private LocalDate dateOfBirth;
-    private SouthAfricanIdType identificationType;
-    private String identificationNumber;
-    private String preferredLanguage;
-    private String province;
-    private String phoneNumber;
-    private String email;
-    private String medicalAidProvider;
+    private final UUID id;
+    private final String firstName;
+    private final String lastName;
+    private final LocalDate dateOfBirth;
+    private final SouthAfricanIdType identificationType;
+    private final String identificationNumber;
+    private final String preferredLanguage;
+    private final String province;
+    private final String phoneNumber;
+    private final String email;
+    private final String medicalAidProvider;
 
     public PatientResponse(Patient patient) {
-        this.id = patient.getUserAccountId().getId();
-        this.firstName = patient.firstName();
-        this.lastName = patient.lastName();
-        this.dateOfBirth = patient.dateOfBirth();
-        this.identificationType = patient.identificationType();
-        this.identificationNumber = patient.identificationNumber();
-        this.preferredLanguage = patient.preferredLanguage();
-        this.province = patient.province();
-        this.phoneNumber = patient.phoneNumber();
-        this.email = patient.email();
-        this.medicalAidProvider = patient.medicalAidProvider();
+        this.id = patient.getPatientId();
+        this.firstName = patient.getFirstName();
+        this.lastName = patient.getLastName();
+        this.dateOfBirth = patient.getDateOfBirth();
+        this.identificationType = patient.getIdentificationType();
+        this.identificationNumber = null;
+        this.preferredLanguage = null;
+        this.province = null;
+        this.phoneNumber = patient.getPhoneNumber();
+        this.email = patient.getEmail();
+        this.medicalAidProvider = null;
     }
 
     public UUID getId() {
