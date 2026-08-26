@@ -27,7 +27,13 @@ public class Patient extends UserAccount {
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
+    private String identificationNumber;
+
+    private SouthAfricanIdType identificationType;
+
     private String phoneNumber;
+
+    private MedicalAidProvider medicalAidProvider;
 
     protected Patient() {
         super();
@@ -48,6 +54,9 @@ public class Patient extends UserAccount {
         this.userAccountId = userAccountId;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
+        this.identificationNumber = patientNumber;
+        this.identificationType = SouthAfricanIdType.SOUTH_AFRICAN_ID_NUMBER;
+        this.medicalAidProvider = MedicalAidProvider.DISCOVER_HEALTHCARE;
     }
 
     public UUID getUserAccountId() {
@@ -65,7 +74,20 @@ public class Patient extends UserAccount {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+    
     public OffsetDateTime getUpdatedAt() {
         return super.getCreatedAt();
+    }
+    
+    public String getIdentificationNumber() {
+        return identificationNumber;
+    }
+    
+    public SouthAfricanIdType getIdentificationType() {
+        return identificationType;
+    }
+    
+    public MedicalAidProvider getMedicalAidProvider() {
+        return medicalAidProvider;
     }
 }

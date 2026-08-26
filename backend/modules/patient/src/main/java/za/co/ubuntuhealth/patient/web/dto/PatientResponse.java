@@ -3,6 +3,7 @@ package za.co.ubuntuhealth.patient.web.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import za.co.ubuntuhealth.patient.domain.MedicalAidProvider;
 import za.co.ubuntuhealth.patient.domain.Patient;
 import za.co.ubuntuhealth.patient.domain.SouthAfricanIdType;
 
@@ -14,24 +15,20 @@ public class PatientResponse {
     private LocalDate dateOfBirth;
     private SouthAfricanIdType identificationType;
     private String identificationNumber;
-    private String preferredLanguage;
-    private String province;
     private String phoneNumber;
     private String email;
-    private String medicalAidProvider;
+    private MedicalAidProvider medicalAidProvider;
 
     public PatientResponse(Patient patient) {
-        this.id = patient.getUserAccountId().getId();
-        this.firstName = patient.firstName();
-        this.lastName = patient.lastName();
-        this.dateOfBirth = patient.dateOfBirth();
-        this.identificationType = patient.identificationType();
-        this.identificationNumber = patient.identificationNumber();
-        this.preferredLanguage = patient.preferredLanguage();
-        this.province = patient.province();
-        this.phoneNumber = patient.phoneNumber();
-        this.email = patient.email();
-        this.medicalAidProvider = patient.medicalAidProvider();
+        this.id = patient.getUserAccountId();
+        this.firstName = patient.getFirstName();
+        this.lastName = patient.getLastName();
+        this.identificationType = patient.getIdentificationType();
+        this.dateOfBirth = patient.getDateOfBirth();
+        this.identificationNumber = patient.getIdentificationNumber();
+        this.phoneNumber = patient.getPhoneNumber();
+        this.email = patient.getEmail();
+        this.medicalAidProvider = patient.getMedicalAidProvider();
     }
 
     public UUID getId() {
@@ -58,14 +55,6 @@ public class PatientResponse {
         return identificationNumber;
     }
 
-    public String getPreferredLanguage() {
-        return preferredLanguage;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -74,7 +63,7 @@ public class PatientResponse {
         return email;
     }
 
-    public String getMedicalAidProvider() {
+    public MedicalAidProvider getMedicalAidProvider() {
         return medicalAidProvider;
     }
     // public static void main(String[] args) {

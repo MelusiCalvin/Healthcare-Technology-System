@@ -55,7 +55,7 @@ public class PatientService {
     public Patient updatePatient(UUID patientId, PatientUpdateCommand command) {
         Patient patient = getPatient(patientId);
 
-        if (!patient.identificationNumber().equals(command.identificationNumber())
+        if (!patient.getIdentificationNumber().equals(command.identificationNumber())
                 && patientRepository.findByIdentificationNumber(command.identificationNumber()).isPresent()) {
             throw new DomainException(ErrorCode.CONFLICT, "A patient with this identification number already exists.");
         }
