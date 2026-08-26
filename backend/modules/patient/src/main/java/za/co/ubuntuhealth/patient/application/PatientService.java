@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import za.co.ubuntuhealth.patient.domain.MedicalAidProvider;
 import za.co.ubuntuhealth.patient.domain.Patient;
 import za.co.ubuntuhealth.patient.domain.SouthAfricanIdType;
 import za.co.ubuntuhealth.patient.infrastructure.PatientRepository;
@@ -27,16 +28,16 @@ public class PatientService {
             throw new DomainException(ErrorCode.CONFLICT, "A patient with this identification number already exists.");
         }
 
-        Patient patient = Patient.register(
+        Patient patient = Patient.registerPatient(
                 command.firstName(),
                 command.lastName(),
                 command.dateOfBirth(),
-                command.identificationType(),
-                command.identificationNumber(),
                 command.preferredLanguage(),
                 command.province(),
                 command.phoneNumber(),
                 command.email(),
+                command.identificationNumber(),
+                command.identificationType(),
                 command.medicalAidProvider()
         );
 
@@ -87,30 +88,30 @@ public class PatientService {
     }
 
     public record PatientRegistrationCommand(
-            String firstName,
-            String lastName,
-            LocalDate dateOfBirth,
-            SouthAfricanIdType identificationType,
-            String identificationNumber,
-            String preferredLanguage,
-            String province,
-            String phoneNumber,
-            String email,
-            String medicalAidProvider
+        String firstName,
+        String lastName,
+        LocalDate dateOfBirth,
+        SouthAfricanIdType identificationType,
+        String identificationNumber,
+        String preferredLanguage,
+        String province,
+        String phoneNumber,
+        String email,
+        MedicalAidProvider medicalAidProvider
     ) {
     }
 
-        public record PatientUpdateCommand(
-            String firstName,
-            String lastName,
-            LocalDate dateOfBirth,
-            SouthAfricanIdType identificationType,
-            String identificationNumber,
-            String preferredLanguage,
-            String province,
-            String phoneNumber,
-            String email,
-            String medicalAidProvider
-        ) {
-        }
+    public record PatientUpdateCommand(
+        String firstName,
+        String lastName,
+        LocalDate dateOfBirth,
+        SouthAfricanIdType identificationType,
+        String identificationNumber,
+        String preferredLanguage,
+        String province,
+        String phoneNumber,
+        String email,
+        MedicalAidProvider medicalAidProvider
+    ) {
+    }
 }
