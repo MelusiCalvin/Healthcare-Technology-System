@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import za.co.ubuntuhealth.patient.domain.MedicalAidProvider;
 import za.co.ubuntuhealth.patient.domain.SouthAfricanIdType;
 
 public class PatientUpdateRequest {
@@ -33,7 +34,7 @@ public class PatientUpdateRequest {
 
     private String email;
 
-    private String medicalAidProvider;
+    private MedicalAidProvider medicalAidProvider;
 
     public String getFirstName() {
         return firstName;
@@ -107,11 +108,11 @@ public class PatientUpdateRequest {
         this.email = email;
     }
 
-    public String getMedicalAidProvider() {
+    public MedicalAidProvider getMedicalAidProvider() {
         return medicalAidProvider;
     }
 
-    public void setMedicalAidProvider(String medicalAidProvider) {
+    public void setMedicalAidProvider(MedicalAidProvider medicalAidProvider) {
         this.medicalAidProvider = medicalAidProvider;
     }
 }

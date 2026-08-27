@@ -3,15 +3,12 @@ package za.co.ubuntuhealth.identity.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import za.co.ubuntuhealth.identity.api.AuthResponse;
 import za.co.ubuntuhealth.identity.api.LoginRequest;
 import za.co.ubuntuhealth.identity.api.RegisterRequest;
 import za.co.ubuntuhealth.identity.domain.UserAccount;
-import za.co.ubuntuhealth.identity.domain.UserRole;
 import za.co.ubuntuhealth.identity.repository.UserAccountRepository;
-
-import java.util.Set;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -29,12 +26,7 @@ public class AuthenticationService {
         if (repository.existsByUsername(username)) {
             throw new UsernameAlreadyExistsException(username);
         }
-        UserAccount user = new UserAccount(
-                UUID.randomUUID(),
-                username,
-                passwordEncoder.encode(request.password()),
-                Set.of(UserRole.PATIENT)
-        );
+        UserAccount user = new UserAccount();
         return AuthResponse.from(repository.save(user));
     }
 

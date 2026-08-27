@@ -59,6 +59,51 @@ public class Patient extends UserAccount {
         this.medicalAidProvider = MedicalAidProvider.DISCOVER_HEALTHCARE;
     }
 
+    public static Patient register(
+            String firstName,
+            String lastName,
+            String email,
+            LocalDate dateOfBirth,
+            String phoneNumber,
+            String identificationNumber,
+            SouthAfricanIdType identificationType,
+            MedicalAidProvider medicalAidProvider
+    ) {
+        Patient patient = new Patient(
+                firstName,
+                lastName,
+                UUID.randomUUID(),
+                identificationNumber,
+                "UNSPECIFIED",
+                email,
+                phoneNumber,
+                dateOfBirth,
+                UUID.randomUUID().toString()
+        );
+        patient.identificationNumber = identificationNumber;
+        patient.identificationType = identificationType;
+        patient.medicalAidProvider = medicalAidProvider;
+        return patient;
+    }
+
+    public void update(
+            String firstName,
+            String lastName,
+            LocalDate dateOfBirth,
+            SouthAfricanIdType identificationType,
+            String identificationNumber,
+            String phoneNumber,
+            String email,
+            MedicalAidProvider medicalAidProvider
+    ) {
+        updatePersonalDetails(firstName, lastName, email);
+        this.dateOfBirth = dateOfBirth;
+        this.identificationType = identificationType;
+        this.identificationNumber = identificationNumber;
+        this.phoneNumber = phoneNumber;
+        this.medicalAidProvider = medicalAidProvider;
+    }
+
     public UUID getUserAccountId() {
         return userAccountId;
     }

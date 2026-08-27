@@ -41,13 +41,11 @@ public class PatientController {
         PatientRegistrationCommand command = new PatientRegistrationCommand(
                 request.getFirstName(),
                 request.getLastName(),
-                request.getDateOfBirth(),
-                request.getIdentificationType(),
-                request.getIdentificationNumber(),
-                request.getPreferredLanguage(),
-                request.getProvince(),
-                request.getPhoneNumber(),
                 request.getEmail(),
+                request.getDateOfBirth(),
+                request.getPhoneNumber(),
+                request.getIdentificationNumber(),
+                request.getIdentificationType(),
                 request.getMedicalAidProvider()
         );
 
@@ -84,8 +82,6 @@ public class PatientController {
                 request.getDateOfBirth(),
                 request.getIdentificationType(),
                 request.getIdentificationNumber(),
-                request.getPreferredLanguage(),
-                request.getProvince(),
                 request.getPhoneNumber(),
                 request.getEmail(),
                 request.getMedicalAidProvider()

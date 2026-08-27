@@ -1,7 +1,5 @@
 package za.co.ubuntuhealth.identity.domain;
 
-import za.co.ubuntuhealth.patient.domain.SouthAfricanIdType;
-
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
@@ -43,8 +41,6 @@ public class UserAccount {
     @Column(name = "sex", nullable = false, length = 10)
     private String sex;
 
-    private SouthAfricanIdType identificationType;
-
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 
@@ -73,7 +69,6 @@ public class UserAccount {
         this.roles = new HashSet<>(roles);
         this.active = true;
         this.createdAt = OffsetDateTime.now();
-        this.identificationType = SouthAfricanIdType.SOUTH_AFRICAN_ID_NUMBER;
     }
 
     public UserAccount(String firstname, String lastname, String username, String email, String passwordHash, Set<UserRole> roles) {
@@ -91,7 +86,6 @@ public class UserAccount {
     public String getLastName() { return lastName; }
     public OffsetDateTime getCreatedAt() { return createdAt; }
     public UUID getId() { return id; }
-    public SouthAfricanIdType getIdentificationType() { return identificationType; }
     public String getUsername() { return username; }
     public String getEmail() { return email; }
     public String getSex() { return sex; }
@@ -99,6 +93,12 @@ public class UserAccount {
     public boolean isActive() { return active; }
     public Set<UserRole> getRoles() { return Set.copyOf(roles); }
     public Instant getLastLoginAt() { return lastLoginAt; }
+
+    protected void updatePersonalDetails(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 
     public void recordSuccessfulLogin(Instant loginAt) {
         this.lastLoginAt = loginAt;

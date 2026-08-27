@@ -28,14 +28,12 @@ public class PatientService {
             throw new DomainException(ErrorCode.CONFLICT, "A patient with this identification number already exists.");
         }
 
-        Patient patient = Patient.registerPatient(
+        Patient patient = Patient.register(
                 command.firstName(),
                 command.lastName(),
-                command.dateOfBirth(),
-                command.preferredLanguage(),
-                command.province(),
-                command.phoneNumber(),
                 command.email(),
+                command.dateOfBirth(),
+                command.phoneNumber(),
                 command.identificationNumber(),
                 command.identificationType(),
                 command.medicalAidProvider()
@@ -67,8 +65,6 @@ public class PatientService {
                 command.dateOfBirth(),
                 command.identificationType(),
                 command.identificationNumber(),
-                command.preferredLanguage(),
-                command.province(),
                 command.phoneNumber(),
                 command.email(),
                 command.medicalAidProvider()
@@ -90,13 +86,11 @@ public class PatientService {
     public record PatientRegistrationCommand(
         String firstName,
         String lastName,
-        LocalDate dateOfBirth,
-        SouthAfricanIdType identificationType,
-        String identificationNumber,
-        String preferredLanguage,
-        String province,
-        String phoneNumber,
         String email,
+        LocalDate dateOfBirth,
+        String phoneNumber,
+        String identificationNumber,
+        SouthAfricanIdType identificationType,
         MedicalAidProvider medicalAidProvider
     ) {
     }
@@ -107,8 +101,6 @@ public class PatientService {
         LocalDate dateOfBirth,
         SouthAfricanIdType identificationType,
         String identificationNumber,
-        String preferredLanguage,
-        String province,
         String phoneNumber,
         String email,
         MedicalAidProvider medicalAidProvider

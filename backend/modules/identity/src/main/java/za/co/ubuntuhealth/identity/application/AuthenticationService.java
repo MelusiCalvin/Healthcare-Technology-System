@@ -2,7 +2,6 @@ package za.co.ubuntuhealth.identity.application;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +17,6 @@ import za.co.ubuntuhealth.identity.infrastructure.persistence.RefreshTokenReposi
 import za.co.ubuntuhealth.identity.infrastructure.persistence.UserAccountRepository;
 import za.co.ubuntuhealth.shared.kernel.error.DomainException;
 import za.co.ubuntuhealth.shared.kernel.error.ErrorCode;
-import za.co.ubuntuhealth.identity.domain.UserRole;
 
 @Service
 public class AuthenticationService {

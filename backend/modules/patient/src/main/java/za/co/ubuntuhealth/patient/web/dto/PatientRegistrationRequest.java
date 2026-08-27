@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import za.co.ubuntuhealth.patient.domain.MedicalAidProvider;
 import za.co.ubuntuhealth.patient.domain.SouthAfricanIdType;
 
 public class PatientRegistrationRequest {
@@ -37,7 +38,7 @@ public class PatientRegistrationRequest {
     @Email(message = "Email must be valid")
     private String email;
 
-    private String medicalAidProvider;
+    private MedicalAidProvider medicalAidProvider;
 
     public PatientRegistrationRequest() {
     }
@@ -114,11 +115,11 @@ public class PatientRegistrationRequest {
         this.email = email;
     }
 
-    public String getMedicalAidProvider() {
+    public MedicalAidProvider getMedicalAidProvider() {
         return medicalAidProvider;
     }
 
-    public void setMedicalAidProvider(String medicalAidProvider) {
+    public void setMedicalAidProvider(MedicalAidProvider medicalAidProvider) {
         this.medicalAidProvider = medicalAidProvider;
     }
 }
