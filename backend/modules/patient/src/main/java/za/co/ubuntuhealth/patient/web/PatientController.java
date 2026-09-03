@@ -59,7 +59,7 @@ public class PatientController {
 
     @GetMapping
     public ResponseEntity<Page<PatientResponse>> searchPatients(
-            @RequestParam(value = "q", required = false) String query,
+            @RequestParam(value = "q", required = false) String query,  
             @RequestParam(value = "province", required = false) String province,
             @RequestParam(value = "language", required = false) String language,
             @RequestParam(value = "page", defaultValue = "0") int page,
