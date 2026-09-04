@@ -2,12 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, ArrowRight, LockKeyhole, UserRound } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useId } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { authApi } from "@/features/auth/auth-api";
+import { useAuth } from "@/features/auth/auth-context";
 
 const loginSchema = z.object({
   username: z.string().trim().min(1, "Enter your username."),
@@ -18,15 +19,18 @@ type LoginValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { signIn } = useAuth();
   const formId = useId();
   const { register, handleSubmit, formState: { errors, isSubmitting }, setError } = useForm<LoginValues>({ resolver: zodResolver(loginSchema) });
 
   const onSubmit = async (values: LoginValues) => {
     try {
       const user = await authApi.login(values);
-      // Identity metadata supports the current backend UX only. Do not store tokens in web storage.
-      window.sessionStorage.setItem("ubuntu-health-display-user", JSON.stringify({ username: user.username, roles: user.roles }));
-      router.replace("/dashboard");
+      signIn(user);
+      const requestedPath = searchParams.get("next");
+      const destination = requestedPath?.startsWith("/") && !requestedPath.startsWith("//") ? requestedPath : "/dashboard";
+      router.replace(destination);
     } catch (error) {
       setError("root", { message: error instanceof Error ? error.message : "Unable to sign in. Please try again." });
     }
