@@ -1,0 +1,3 @@
+The following files have been resolved:
+   za.co.ubuntuhealth:ubuntu-health-shared-kernel:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.shared.kernel (auto)
+

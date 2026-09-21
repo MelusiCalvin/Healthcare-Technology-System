@@ -1,15 +1,18 @@
 package za.co.ubuntuhealth.identity.web;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import za.co.ubuntuhealth.identity.application.AuthenticationService;
 import za.co.ubuntuhealth.identity.web.dto.AuthenticationRequest;
 import za.co.ubuntuhealth.identity.web.dto.AuthenticationResponse;
+import za.co.ubuntuhealth.identity.web.dto.LogoutRequest;
+import za.co.ubuntuhealth.identity.web.dto.RegistrationRequest;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -39,7 +42,24 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(new AuthenticationResponse(
                 authenticationResult.accessToken(),
-                authenticationResult.refreshToken()
+                authenticationResult.refreshToken(),
+                authenticationResult.user()
+        ));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@Valid @RequestBody LogoutRequest request) {
+        authenticationService.revokeRefreshToken(request.getRefreshToken());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegistrationRequest request) {
+        var result = authenticationService.register(request);
+        return ResponseEntity.ok(new AuthenticationResponse(
+                result.accessToken(),
+                result.refreshToken(),
+                result.user()
         ));
     }
 }

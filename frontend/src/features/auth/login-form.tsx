@@ -51,6 +51,7 @@ export function LoginForm() {
       </label>
       <div className="flex items-center justify-between gap-3"><label className="inline-flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" className="h-4 w-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500" /> Remember this device</label><button type="button" className="text-sm font-bold text-primary-600 hover:text-primary-700">Need help?</button></div>
       <Button type="submit" className="w-full" size="lg" loading={isSubmitting}>Sign in securely <ArrowRight className="h-4 w-4" /></Button>
+      <p className="text-center text-sm text-slate-500">New to Ubuntu Health? <a href="/signup" className="font-bold text-primary-600 hover:text-primary-700">Create an account</a></p>
     </form>
   );
 }

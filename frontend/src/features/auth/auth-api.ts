@@ -1,6 +1,8 @@
 import { apiClient, toApiClientError } from "@/lib/api-client";
 
-interface LegacyLoginResponse {
+interface AuthenticationResponse {
+  accessToken: string;
+  refreshToken: string;
   userId: string;
   username: string;
   roles: string[];
@@ -12,20 +14,63 @@ export interface AuthenticatedUser {
   roles: string[];
 }
 
+export interface AuthSession {
+  user: AuthenticatedUser;
+  accessToken: string;
+  refreshToken: string;
+}
+
 /**
  * The API adapter is intentionally the only frontend entry point for authentication.
- * The current backend returns identity metadata; the planned JWT/refresh-token contract
- * can replace this mapping without changing UI forms or pages.
  */
 export const authApi = {
-  async login(input: { username: string; password: string }): Promise<AuthenticatedUser> {
+  async login(input: { username: string; password: string }): Promise<AuthSession> {
     try {
-      const response = await apiClient.post<LegacyLoginResponse>("/auth/login", input);
+      const response = await apiClient.post<AuthenticationResponse>("/auth/login", {
+        usernameOrEmail: input.username,
+        password: input.password,
+      });
       return {
-        id: response.data.userId,
-        username: response.data.username,
-        roles: response.data.roles,
+        user: {
+          id: response.data.userId,
+          username: response.data.username,
+          roles: response.data.roles,
+        },
+        accessToken: response.data.accessToken,
+        refreshToken: response.data.refreshToken,
       };
+    } catch (error) {
+      throw toApiClientError(error);
+    }
+  },
+
+  async register(input: {
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    sex: string;
+    password: string;
+  }): Promise<AuthSession> {
+    try {
+      const response = await apiClient.post<AuthenticationResponse>("/auth/register", input);
+      return {
+        user: {
+          id: response.data.userId,
+          username: response.data.username,
+          roles: response.data.roles,
+        },
+        accessToken: response.data.accessToken,
+        refreshToken: response.data.refreshToken,
+      };
+    } catch (error) {
+      throw toApiClientError(error);
+    }
+  },
+
+  async logout(refreshToken: string): Promise<void> {
+    try {
+      await apiClient.post("/auth/logout", { refreshToken });
     } catch (error) {
       throw toApiClientError(error);
     }
