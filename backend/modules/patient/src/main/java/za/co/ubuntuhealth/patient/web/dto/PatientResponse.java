@@ -66,7 +66,4 @@ public class PatientResponse {
     public MedicalAidProvider getMedicalAidProvider() {
         return medicalAidProvider;
     }
-    // public static void main(String[] args) {
-        
-    // }
 }
