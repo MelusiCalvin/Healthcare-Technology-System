@@ -1,0 +1,10 @@
+The following files have been resolved:
+   za.co.ubuntuhealth:ubuntu-health-shared-kernel:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.shared.kernel (auto)
+   za.co.ubuntuhealth:ubuntu-health-contracts:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.contracts (auto)
+   org.springframework.boot:spring-boot-starter-data-jpa:jar:4.1.0:compile -- module spring.boot.starter.data.jpa [auto]
+   org.springframework.boot:spring-boot-starter-validation:jar:4.1.0:compile -- module spring.boot.starter.validation [auto]
+   org.springframework.security:spring-security-core:jar:7.1.0:compile -- module spring.security.core [auto]
+   org.springframework.security:spring-security-crypto:jar:7.1.0:compile -- module spring.security.crypto [auto]
+   org.springframework.boot:spring-boot-starter-security:jar:4.1.0:compile -- module spring.boot.starter.security [auto]
+   org.springframework.boot:spring-boot-starter-web:jar:4.1.0:compile -- module spring.boot.starter.web [auto]
+

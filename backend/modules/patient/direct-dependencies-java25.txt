@@ -1,0 +1,7 @@
+The following files have been resolved:
+   za.co.ubuntuhealth:ubuntu-health-identity:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.identity (auto)
+   za.co.ubuntuhealth:ubuntu-health-shared-kernel:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.shared.kernel (auto)
+   org.springframework.boot:spring-boot-starter-webmvc:jar:4.1.0:compile -- module spring.boot.starter.webmvc [auto]
+   org.springframework.boot:spring-boot-starter-validation:jar:4.1.0:compile -- module spring.boot.starter.validation [auto]
+   jakarta.persistence:jakarta.persistence-api:jar:3.2.0:compile -- module jakarta.persistence
+

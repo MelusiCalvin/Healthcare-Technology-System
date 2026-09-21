@@ -98,8 +98,8 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
   const router = useRouter();
   const { user, signOut } = useAuth();
 
-  const logout = () => {
-    signOut();
+  const logout = async () => {
+    await signOut();
     router.replace("/login");
   };
 

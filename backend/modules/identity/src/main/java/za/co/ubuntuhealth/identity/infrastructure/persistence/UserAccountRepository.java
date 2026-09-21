@@ -1,11 +1,12 @@
 package za.co.ubuntuhealth.identity.infrastructure.persistence;
 
-import za.co.ubuntuhealth.identity.domain.UserAccount;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.Optional;
-import java.util.UUID;
+import za.co.ubuntuhealth.identity.domain.UserAccount;
 
 public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> {
 
@@ -17,4 +18,6 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> 
     Optional<UserAccount> findByUsernameOrEmail(String identifier);
 
     boolean existsByUsernameIgnoreCase(String username);
+
+    boolean existsByEmailIgnoreCase(String email);
 }

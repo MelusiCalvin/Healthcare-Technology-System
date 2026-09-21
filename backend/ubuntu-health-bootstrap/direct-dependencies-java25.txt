@@ -1,0 +1,31 @@
+The following files have been resolved:
+   org.springframework.boot:spring-boot-starter-web:jar:4.1.0:compile -- module spring.boot.starter.web [auto]
+   org.springframework.boot:spring-boot-starter-validation:jar:4.1.0:compile -- module spring.boot.starter.validation [auto]
+   org.springframework.boot:spring-boot-starter-data-jpa:jar:4.1.0:compile -- module spring.boot.starter.data.jpa [auto]
+   org.springframework.boot:spring-boot-starter-actuator:jar:4.1.0:compile -- module spring.boot.starter.actuator [auto]
+   org.springframework.boot:spring-boot-starter-security:jar:4.1.0:compile -- module spring.boot.starter.security [auto]
+   org.springframework.boot:spring-boot-starter-oauth2-resource-server:jar:4.1.0:compile -- module spring.boot.starter.oauth2.resource.server [auto]
+   org.springframework.security:spring-security-oauth2-jose:jar:7.1.0:compile -- module spring.security.oauth2.jose [auto]
+   org.flywaydb:flyway-core:jar:12.4.0:compile -- module flyway.core (auto)
+   org.flywaydb:flyway-database-postgresql:jar:12.4.0:compile -- module flyway.database.postgresql (auto)
+   org.postgresql:postgresql:jar:42.7.12:runtime -- module org.postgresql.jdbc [auto]
+   io.micrometer:micrometer-registry-prometheus:jar:1.17.0:compile -- module micrometer.registry.prometheus [auto]
+   org.springdoc:springdoc-openapi-starter-webmvc-ui:jar:2.8.17:compile -- module org.springdoc.openapi.ui [auto]
+   org.springframework.boot:spring-boot-configuration-processor:jar:4.1.0:compile (optional) -- module spring.boot.configuration.processor [auto]
+   za.co.ubuntuhealth:ubuntu-health-shared-kernel:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.shared.kernel (auto)
+   za.co.ubuntuhealth:ubuntu-health-contracts:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.contracts (auto)
+   za.co.ubuntuhealth:ubuntu-health-identity:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.identity (auto)
+   za.co.ubuntuhealth:ubuntu-health-organisation:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.organisation (auto)
+   za.co.ubuntuhealth:ubuntu-health-patient:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.patient (auto)
+   za.co.ubuntuhealth:ubuntu-health-scheduling:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.scheduling (auto)
+   za.co.ubuntuhealth:ubuntu-health-clinical:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.clinical (auto)
+   za.co.ubuntuhealth:ubuntu-health-nursing:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.nursing (auto)
+   za.co.ubuntuhealth:ubuntu-health-pharmacy:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.pharmacy (auto)
+   za.co.ubuntuhealth:ubuntu-health-diagnostics:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.diagnostics (auto)
+   za.co.ubuntuhealth:ubuntu-health-finance:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.finance (auto)
+   za.co.ubuntuhealth:ubuntu-health-communication:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.communication (auto)
+   za.co.ubuntuhealth:ubuntu-health-documents:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.documents (auto)
+   za.co.ubuntuhealth:ubuntu-health-audit:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.audit (auto)
+   za.co.ubuntuhealth:ubuntu-health-integration:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.integration (auto)
+   za.co.ubuntuhealth:ubuntu-health-reporting:jar:0.1.0-SNAPSHOT:compile -- module ubuntu.health.reporting (auto)
+

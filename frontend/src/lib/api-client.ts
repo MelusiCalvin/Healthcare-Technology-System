@@ -11,6 +11,23 @@ export const apiClient = axios.create({
   withCredentials: true,
 });
 
+apiClient.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    const stored = window.sessionStorage.getItem("ubuntu-health-auth-session");
+    if (stored) {
+      try {
+        const session = JSON.parse(stored) as { accessToken?: string };
+        if (session.accessToken) {
+          config.headers.Authorization = `Bearer ${session.accessToken}`;
+        }
+      } catch {
+        window.sessionStorage.removeItem("ubuntu-health-auth-session");
+      }
+    }
+  }
+  return config;
+});
+
 export class ApiClientError extends Error {
   readonly status?: number;
   readonly correlationId?: string;
