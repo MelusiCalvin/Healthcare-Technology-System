@@ -20,10 +20,12 @@ spring:
         jdbc:
           time_zone: UTC
   flyway:
-    enabled: ${FLYWAY_ENABLED:false}
+    enabled: ${FLYWAY_ENABLED:true}
     locations: classpath:db/migration
     validate-migration-naming: true
     clean-disabled: true
+    placeholders:
+      appRole: ${APP_DATABASE_USERNAME:ubuntu_health_app}
   lifecycle:
     timeout-per-shutdown-phase: 30s
   mvc:
@@ -76,6 +78,9 @@ ubuntu-health:
       private-key-base64: ${JWT_PRIVATE_KEY_BASE64:}
       public-key-base64: ${JWT_PUBLIC_KEY_BASE64:}
       access-token-ttl: ${JWT_ACCESS_TOKEN_TTL:PT15M}
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
     refresh-token:
       ttl: ${REFRESH_TOKEN_TTL:P30D}
       cookie-name: ${REFRESH_TOKEN_COOKIE_NAME:ubuntu_health_refresh}
