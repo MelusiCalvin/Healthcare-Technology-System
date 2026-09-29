@@ -7,18 +7,25 @@ import java.util.UUID;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.annotation.PostConstruct;
+import za.co.ubuntuhealth.identity.api.AuthResponse;
+import za.co.ubuntuhealth.identity.api.LoginRequest;
+import za.co.ubuntuhealth.identity.api.RegisterRequest;
 import za.co.ubuntuhealth.identity.domain.PasswordCredential;
 import za.co.ubuntuhealth.identity.domain.RefreshToken;
 import za.co.ubuntuhealth.identity.domain.UserAccount;
 import za.co.ubuntuhealth.identity.infrastructure.persistence.PasswordCredentialRepository;
 import za.co.ubuntuhealth.identity.infrastructure.persistence.RefreshTokenRepository;
 import za.co.ubuntuhealth.identity.infrastructure.persistence.UserAccountRepository;
+import za.co.ubuntuhealth.identity.service.InvalidCredentialsException;
+import za.co.ubuntuhealth.identity.service.UsernameAlreadyExistsException;
 import za.co.ubuntuhealth.shared.kernel.error.DomainException;
 import za.co.ubuntuhealth.shared.kernel.error.ErrorCode;
 
 @Service
+@Transactional
 public class AuthenticationService {
 
     private final UserAccountRepository userAccountRepository;
@@ -41,6 +48,30 @@ public class AuthenticationService {
         this.tokenFactory = tokenFactory;
         this.refreshTokenTtl = properties.refreshTokenTtl();
         this.passwordEncoder = new BCryptPasswordEncoder();
+    }
+    
+    public AuthenticationService(UserAccountRepository userAccountRepository, PasswordEncoder passwordEncoder) {
+        this.userAccountRepository = userAccountRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public AuthResponse register(RegisterRequest request) {
+        String username = request.username().trim();
+        if (userAccountRepository.existsByUsername(username)) {
+            throw new UsernameAlreadyExistsException(username);
+        }
+        UserAccount user = new UserAccount();
+        return AuthResponse.from(userAccountRepository.save(user));
+    }
+
+    @Transactional(readOnly = true)
+    public AuthResponse authenticate(LoginRequest request) {
+        UserAccount user = userAccountRepository.findByUsername(request.username().trim())
+                .orElseThrow(InvalidCredentialsException::new);
+        if (!user.isActive() || !passwordEncoder.matches(request.password(), user.getPasswordHash())) {
+            throw new InvalidCredentialsException();
+        }
+        return AuthResponse.from(user);
     }
 
     @PostConstruct
