@@ -39,7 +39,10 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(new AuthenticationResponse(
                 authenticationResult.accessToken(),
-                authenticationResult.refreshToken()
+            authenticationResult.refreshToken(),
+            authenticationResult.userId(),
+            authenticationResult.username(),
+            authenticationResult.roles()
         ));
     }
 }

@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -19,7 +21,8 @@ public class RefreshToken {
     @Id
     private UUID id;
 
-    @Column(name = "token_hash", nullable = false, unique = true)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "token_hash", nullable = false, unique = true, length = 64)
     private String tokenHash;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -41,10 +44,12 @@ public class RefreshToken {
     @Column(name = "revocation_reason")
     private String revocationReason;
 
-    @Column(name = "user_agent_hash")
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "user_agent_hash", length = 64)
     private String userAgentHash;
 
-    @Column(name = "source_ip_hash")
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "source_ip_hash", length = 64)
     private String sourceIpHash;
 
     protected RefreshToken() {

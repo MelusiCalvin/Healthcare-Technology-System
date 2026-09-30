@@ -1,6 +1,8 @@
 import { apiClient, toApiClientError } from "@/lib/api-client";
 
-interface LegacyLoginResponse {
+interface LoginResponse {
+  accessToken: string;
+  refreshToken: string;
   userId: string;
   username: string;
   roles: string[];
@@ -20,7 +22,10 @@ export interface AuthenticatedUser {
 export const authApi = {
   async login(input: { username: string; password: string }): Promise<AuthenticatedUser> {
     try {
-      const response = await apiClient.post<LegacyLoginResponse>("/auth/login", input);
+      const response = await apiClient.post<LoginResponse>("/auth/login", {
+        usernameOrEmail: input.username,
+        password: input.password,
+      });
       return {
         id: response.data.userId,
         username: response.data.username,

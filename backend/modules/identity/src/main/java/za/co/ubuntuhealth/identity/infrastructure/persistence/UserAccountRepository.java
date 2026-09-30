@@ -1,11 +1,11 @@
 package za.co.ubuntuhealth.identity.infrastructure.persistence;
 
-import za.co.ubuntuhealth.identity.domain.UserAccount;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import za.co.ubuntuhealth.identity.domain.UserAccount;
 
 public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> {
 

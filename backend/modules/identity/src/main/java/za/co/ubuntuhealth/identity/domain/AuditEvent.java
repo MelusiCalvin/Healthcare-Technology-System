@@ -42,7 +42,8 @@ public class AuditEvent {
     @Column(name = "correlation_id")
     private String correlationId;
 
-    @Column(name = "source_ip_hash")
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "source_ip_hash", length = 64)
     private String sourceIpHash;
 
     @JdbcTypeCode(SqlTypes.JSON)

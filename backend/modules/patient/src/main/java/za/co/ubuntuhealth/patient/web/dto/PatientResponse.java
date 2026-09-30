@@ -20,7 +20,7 @@ public class PatientResponse {
     private MedicalAidProvider medicalAidProvider;
 
     public PatientResponse(Patient patient) {
-        this.id = patient.getUserAccountId();
+        this.id = patient.getPatientId();
         this.firstName = patient.getFirstName();
         this.lastName = patient.getLastName();
         this.identificationType = patient.getIdentificationType();

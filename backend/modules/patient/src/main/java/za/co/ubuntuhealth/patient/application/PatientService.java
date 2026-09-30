@@ -36,7 +36,9 @@ public class PatientService {
                 command.phoneNumber(),
                 command.identificationNumber(),
                 command.identificationType(),
-                command.medicalAidProvider()
+                command.medicalAidProvider(),
+                command.province(),
+                command.preferredLanguage()
         );
 
         return patientRepository.save(patient);
@@ -67,7 +69,9 @@ public class PatientService {
                 command.identificationNumber(),
                 command.phoneNumber(),
                 command.email(),
-                command.medicalAidProvider()
+                command.medicalAidProvider(),
+                command.province(),
+                command.preferredLanguage()
         );
 
         return patientRepository.save(patient);
@@ -91,7 +95,9 @@ public class PatientService {
         String phoneNumber,
         String identificationNumber,
         SouthAfricanIdType identificationType,
-        MedicalAidProvider medicalAidProvider
+        MedicalAidProvider medicalAidProvider,
+        String province,
+        String preferredLanguage
     ) {
     }
 
@@ -103,7 +109,9 @@ public class PatientService {
         String identificationNumber,
         String phoneNumber,
         String email,
-        MedicalAidProvider medicalAidProvider
+        MedicalAidProvider medicalAidProvider,
+        String province,
+        String preferredLanguage
     ) {
     }
 }

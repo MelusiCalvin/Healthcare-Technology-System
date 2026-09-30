@@ -44,7 +44,9 @@ public class PatientController {
                 request.getPhoneNumber(),
                 request.getIdentificationNumber(),
                 request.getIdentificationType(),
-                request.getMedicalAidProvider()
+                request.getMedicalAidProvider(),
+                request.getProvince(),
+                request.getPreferredLanguage()
         );
 
         var patient = patientService.registerPatient(command);
@@ -82,7 +84,9 @@ public class PatientController {
                 request.getIdentificationNumber(),
                 request.getPhoneNumber(),
                 request.getEmail(),
-                request.getMedicalAidProvider()
+                request.getMedicalAidProvider(),
+                request.getProvince(),
+                request.getPreferredLanguage()
         );
 
         var updated = patientService.updatePatient(id, command);

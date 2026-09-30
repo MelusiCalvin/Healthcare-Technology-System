@@ -2,6 +2,7 @@ package za.co.ubuntuhealth.identity.application;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,13 +10,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.annotation.PostConstruct;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.jdbc.core.JdbcTemplate;
 import za.co.ubuntuhealth.identity.api.AuthResponse;
 import za.co.ubuntuhealth.identity.api.LoginRequest;
 import za.co.ubuntuhealth.identity.api.RegisterRequest;
 import za.co.ubuntuhealth.identity.domain.PasswordCredential;
 import za.co.ubuntuhealth.identity.domain.RefreshToken;
 import za.co.ubuntuhealth.identity.domain.UserAccount;
+import za.co.ubuntuhealth.identity.domain.UserRole;
 import za.co.ubuntuhealth.identity.infrastructure.persistence.PasswordCredentialRepository;
 import za.co.ubuntuhealth.identity.infrastructure.persistence.RefreshTokenRepository;
 import za.co.ubuntuhealth.identity.infrastructure.persistence.UserAccountRepository;
@@ -31,33 +35,36 @@ public class AuthenticationService {
     private final UserAccountRepository userAccountRepository;
     private final PasswordCredentialRepository passwordCredentialRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final JdbcTemplate jdbcTemplate;
     private final TokenFactory tokenFactory;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationProperties properties;
     private final Duration refreshTokenTtl;
 
     public AuthenticationService(
             UserAccountRepository userAccountRepository,
             PasswordCredentialRepository passwordCredentialRepository,
             RefreshTokenRepository refreshTokenRepository,
+            JdbcTemplate jdbcTemplate,
             TokenFactory tokenFactory,
-            AuthenticationProperties properties
+            AuthenticationProperties properties,
+            PasswordEncoder passwordEncoder
     ) {
         this.userAccountRepository = userAccountRepository;
         this.passwordCredentialRepository = passwordCredentialRepository;
         this.refreshTokenRepository = refreshTokenRepository;
+        this.jdbcTemplate = jdbcTemplate;
         this.tokenFactory = tokenFactory;
+        this.properties = properties;
         this.refreshTokenTtl = properties.refreshTokenTtl();
-        this.passwordEncoder = new BCryptPasswordEncoder();
-    }
-    
-    public AuthenticationService(UserAccountRepository userAccountRepository, PasswordEncoder passwordEncoder) {
-        this.userAccountRepository = userAccountRepository;
         this.passwordEncoder = passwordEncoder;
     }
+    
+
 
     public AuthResponse register(RegisterRequest request) {
         String username = request.username().trim();
-        if (userAccountRepository.existsByUsername(username)) {
+        if (userAccountRepository.existsByUsernameIgnoreCase(username)) {
             throw new UsernameAlreadyExistsException(username);
         }
         UserAccount user = new UserAccount();
@@ -66,7 +73,7 @@ public class AuthenticationService {
 
     @Transactional(readOnly = true)
     public AuthResponse authenticate(LoginRequest request) {
-        UserAccount user = userAccountRepository.findByUsername(request.username().trim())
+        UserAccount user = userAccountRepository.findByUsernameOrEmail(request.username().trim())
                 .orElseThrow(InvalidCredentialsException::new);
         if (!user.isActive() || !passwordEncoder.matches(request.password(), user.getPasswordHash())) {
             throw new InvalidCredentialsException();
@@ -74,11 +81,47 @@ public class AuthenticationService {
         return AuthResponse.from(user);
     }
 
-    @PostConstruct
+    @EventListener(ApplicationReadyEvent.class)
     void bootstrapDefaultAdmin() {
-        if (userAccountRepository.count() == 0) {
-            UserAccount admin = new UserAccount();
-            userAccountRepository.save(admin);
+        AuthenticationProperties.BootstrapAdmin config = properties.bootstrapAdmin();
+        if (!config.isEnabled()) {
+            return;
+        }
+
+        String username = config.getUsername() == null ? "" : config.getUsername().trim();
+        UserAccount admin = userAccountRepository.findByUsernameOrEmail(username).orElse(null);
+        String[] nameParts = config.getDisplayName() == null
+                ? new String[0]
+                : config.getDisplayName().trim().split("\\s+", 2);
+        if (admin == null && userAccountRepository.count() != 0) {
+            return;
+        }
+        if (admin == null && (nameParts.length != 2
+                || username.isBlank()
+                || config.getEmail() == null || config.getEmail().isBlank()
+                || config.getPassword() == null || config.getPassword().isBlank())) {
+            throw new IllegalStateException("Bootstrap admin requires username, email, password, and a first and last name.");
+        }
+
+        if (admin == null) {
+            admin = userAccountRepository.save(new UserAccount(
+                    nameParts[0],
+                    nameParts[1],
+                    username,
+                    config.getEmail().trim(),
+                    passwordEncoder.encode(config.getPassword()),
+                    Set.of(UserRole.SYSTEM_ADMIN)
+            ));
+        }
+
+        jdbcTemplate.update("""
+                INSERT INTO iam.user_account (id, username, email, display_name, status)
+                VALUES (?, ?, ?, ?, 'ACTIVE')
+                ON CONFLICT (id) DO NOTHING
+                """, admin.getId(), admin.getUsername(), admin.getEmail(),
+                admin.getFirstName() + " " + admin.getLastName());
+
+        if (!passwordCredentialRepository.existsById(admin.getId())) {
             passwordCredentialRepository.save(PasswordCredential.forUser(admin, admin.getPasswordHash()));
         }
     }
@@ -107,9 +150,21 @@ public class AuthenticationService {
         user.recordSuccessfulLogin(Instant.now());
         userAccountRepository.save(user);
 
-        return new AuthenticationResponse(accessToken, refreshToken);
+        return new AuthenticationResponse(
+            accessToken,
+            refreshToken,
+            user.getId(),
+            user.getUsername(),
+            user.getRoles()
+        );
     }
 
-    public record AuthenticationResponse(String accessToken, String refreshToken) {
+        public record AuthenticationResponse(
+            String accessToken,
+            String refreshToken,
+            UUID userId,
+            String username,
+            Set<UserRole> roles
+        ) {
     }
 }

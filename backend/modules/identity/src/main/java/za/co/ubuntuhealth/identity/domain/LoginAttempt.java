@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 
@@ -12,7 +14,8 @@ import java.time.Instant;
 public class LoginAttempt {
 
     @Id
-    @Column(name = "subject_hash")
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "subject_hash", length = 64)
     private String subjectHash;
 
     @Column(name = "failure_count", nullable = false)

@@ -1,3 +1,7 @@
+CREATE SCHEMA IF NOT EXISTS core;
+GRANT USAGE ON SCHEMA core TO ${appRole};
+ALTER DEFAULT PRIVILEGES IN SCHEMA core GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO ${appRole};
+
 CREATE TABLE core.patient (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     first_name varchar(100) NOT NULL,
