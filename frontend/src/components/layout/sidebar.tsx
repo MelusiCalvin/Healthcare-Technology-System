@@ -104,7 +104,8 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
   };
 
   const roleLabel = user?.roles[0]?.replaceAll("_", " ") ?? "User";
-  const initials = user?.username?.slice(0, 2).toUpperCase() ?? "UH";
+  const displayName = [user?.firstName, user?.lastName].filter(Boolean).join(" ") || user?.username || "";
+  const initials = displayName.slice(0, 2).toUpperCase();
 
   return (
     <>
@@ -125,7 +126,7 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
           <div className="flex items-center gap-3 rounded-xl px-2 py-2">
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary-100 text-xs font-bold text-primary-700 dark:bg-primary-900 dark:text-primary-200">{initials}</span>
             <span className="min-w-0 flex-1">
-              <span className="block truncate text-sm font-semibold text-slate-800 dark:text-slate-100">{user?.username ?? "User"}</span>
+              <span className="block truncate text-sm font-semibold text-slate-800 dark:text-slate-100">{displayName}</span>
               <span className="block truncate text-xs capitalize text-slate-500 dark:text-slate-400">{roleLabel.toLowerCase()}</span>
             </span>
           </div>

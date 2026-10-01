@@ -155,6 +155,9 @@ public class AuthenticationService {
             refreshToken,
             user.getId(),
             user.getUsername(),
+            user.getFirstName(),
+            user.getLastName(),
+            user.getEmail(),
             user.getRoles()
         );
     }
@@ -164,6 +167,9 @@ public class AuthenticationService {
             String refreshToken,
             UUID userId,
             String username,
+            String firstName,
+            String lastName,
+            String email,
             Set<UserRole> roles
         ) {
     }

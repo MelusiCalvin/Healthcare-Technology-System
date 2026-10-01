@@ -5,20 +5,23 @@ interface LoginResponse {
   refreshToken: string;
   userId: string;
   username: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
   roles: string[];
 }
 
 export interface AuthenticatedUser {
   id: string;
   username: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
   roles: string[];
+  accessToken: string;
+  refreshToken: string;
 }
 
-/**
- * The API adapter is intentionally the only frontend entry point for authentication.
- * The current backend returns identity metadata; the planned JWT/refresh-token contract
- * can replace this mapping without changing UI forms or pages.
- */
 export const authApi = {
   async login(input: { username: string; password: string }): Promise<AuthenticatedUser> {
     try {
@@ -29,7 +32,12 @@ export const authApi = {
       return {
         id: response.data.userId,
         username: response.data.username,
+        firstName: response.data.firstName ?? undefined,
+        lastName: response.data.lastName ?? undefined,
+        email: response.data.email ?? undefined,
         roles: response.data.roles,
+        accessToken: response.data.accessToken,
+        refreshToken: response.data.refreshToken,
       };
     } catch (error) {
       throw toApiClientError(error);

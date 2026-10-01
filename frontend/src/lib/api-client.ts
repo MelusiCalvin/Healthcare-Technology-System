@@ -1,4 +1,6 @@
 import axios, { AxiosError } from "axios";
+import type { AuthenticatedUser } from "@/features/auth/auth-api";
+import { AUTH_SESSION_STORAGE_KEY } from "@/features/auth/auth-session";
 import type { ApiProblem } from "@/types/api";
 
 export const apiClient = axios.create({
@@ -9,6 +11,23 @@ export const apiClient = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true,
+});
+
+apiClient.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    try {
+      const stored = window.sessionStorage.getItem(AUTH_SESSION_STORAGE_KEY);
+      if (stored) {
+        const session = JSON.parse(stored) as AuthenticatedUser;
+        if (session.accessToken) {
+          config.headers.set("Authorization", `Bearer ${session.accessToken}`);
+        }
+      }
+    } catch {
+      window.sessionStorage.removeItem(AUTH_SESSION_STORAGE_KEY);
+    }
+  }
+  return config;
 });
 
 export class ApiClientError extends Error {

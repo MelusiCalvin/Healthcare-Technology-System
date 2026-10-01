@@ -2,8 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { AuthenticatedUser } from "@/features/auth/auth-api";
-
-const STORAGE_KEY = "ubuntu-health-display-user";
+import { AUTH_SESSION_STORAGE_KEY } from "@/features/auth/auth-session";
 
 interface AuthContextValue {
   user: AuthenticatedUser | null;
@@ -21,15 +20,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const stored = window.sessionStorage.getItem(STORAGE_KEY);
+      const stored = window.sessionStorage.getItem(AUTH_SESSION_STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored) as AuthenticatedUser;
-        if (parsed?.username && Array.isArray(parsed.roles)) {
+        if (parsed?.id && parsed.username && parsed.accessToken && parsed.refreshToken && Array.isArray(parsed.roles)) {
           setUser(parsed);
+        } else {
+          window.sessionStorage.removeItem(AUTH_SESSION_STORAGE_KEY);
         }
       }
     } catch {
-      window.sessionStorage.removeItem(STORAGE_KEY);
+      window.sessionStorage.removeItem(AUTH_SESSION_STORAGE_KEY);
     } finally {
       setLoading(false);
     }
@@ -40,11 +41,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     loading,
     signIn: (nextUser) => {
       setUser(nextUser);
-      window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(nextUser));
+      window.sessionStorage.setItem(AUTH_SESSION_STORAGE_KEY, JSON.stringify(nextUser));
     },
     signOut: () => {
       setUser(null);
-      window.sessionStorage.removeItem(STORAGE_KEY);
+      window.sessionStorage.removeItem(AUTH_SESSION_STORAGE_KEY);
     },
     hasRole: (...roles) => roles.some((role) => user?.roles.includes(role)),
   }), [user, loading]);

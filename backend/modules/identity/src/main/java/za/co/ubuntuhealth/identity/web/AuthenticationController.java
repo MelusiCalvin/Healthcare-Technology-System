@@ -42,6 +42,9 @@ public class AuthenticationController {
             authenticationResult.refreshToken(),
             authenticationResult.userId(),
             authenticationResult.username(),
+            authenticationResult.firstName(),
+            authenticationResult.lastName(),
+            authenticationResult.email(),
             authenticationResult.roles()
         ));
     }
